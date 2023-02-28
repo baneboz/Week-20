@@ -1,6 +1,12 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300,700");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap");
 
-html {
+:root {
+  --main-gren-dark: #253621;
+  --main-green: #00b0c8;
+  --main-black: #2f362f;
+  /* --main-gray: #6d7469;
+  --main-gray-light: #a9a9a9; */
+  --bold: 700;
   box-sizing: border-box;
   font-size: 16px;
 }
@@ -22,7 +28,6 @@ ul,
 figure {
   margin: 0;
   padding: 0;
-  font-weight: 400;
 }
 
 ol,
@@ -35,17 +40,80 @@ img {
   height: auto;
   display: inline-block;
 }
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
 /*************
 **** app */
 
 body {
-  font-family: "Open Sans", Helvetica, sans-serif;
-  color: #555;
+  font-family: "Ubuntu", Helvetica, sans-serif;
+  color: var(--main-black);
   background-color: #f7f7f7;
-  max-width: 960px;
-  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.4;
+  transition: all 0.3s ease;
 }
+h1 {
+  padding-bottom: 0.5em;
+  font-size: 4rem;
+  letter-spacing: 0.1em;
+}
+/*************
+**** helpers */
+
+/*************
+**** header and nav */
+.page__header,
+.app__container {
+  padding-inline: 1em;
+  padding-block: 1em 2em;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+.nav__link {
+  flex: 1;
+  text-align: center;
+}
+.nav__link--active,
+.nav__link:hover {
+  color: var(--main-green);
+}
+.nav__link a {
+  display: block;
+  padding: 0.75em 0.25em;
+  font-weight: var(--bold);
+}
+.nav__link--brand {
+  flex: 100%;
+  order: -1;
+}
+.nav__link--brand:hover {
+  filter: grayscale(100%);
+}
+/*************
+**** home main */
+.app__quote {
+  border-left: 5px solid var(--main-gren-dark);
+  padding-left: 1em;
+  margin-bottom: 3em;
+  font-size: 1.5rem;
+}
+
+/*************
+**** footer */
+.page__footer {
+  padding: 10em 2em;
+  background-color: var(--main-black);
+  color: #fff;
+  text-align: center;
+}
+
+/*************
+**** cards app */
 .card__container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -98,4 +166,25 @@ body {
 }
 .hidden {
   display: none;
+}
+
+/*************
+**** tablet */
+@media all and (min-width: 720px) {
+  .nav {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .nav__link--brand {
+    flex: 1;
+    order: 0;
+  }
+}
+
+/*************
+**** large */
+@media all and (min-width: 1120px) {
+  :root {
+    font-size: 18px;
+  }
 }
