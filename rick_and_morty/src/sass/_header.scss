@@ -1,0 +1,40 @@
+.page__header {
+  padding: 3em 1em 0;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  &__link {
+    flex: 1;
+    text-align: center;
+    &--active,
+    &:hover {
+      color: $green;
+    }
+    a {
+      display: block;
+      padding: 0.75em 0.25em;
+      font-weight: $f-bold;
+    }
+    &--brand {
+      flex: 100%;
+      img {
+        width: 250px;
+      }
+      &:hover {
+        filter: grayscale(100%);
+      }
+    }
+  }
+}
+
+@media all and (min-width: 720px) {
+  .nav {
+    flex-wrap: nowrap;
+    align-items: center;
+    &__link--brand {
+      flex: 1;
+    }
+  }
+}
