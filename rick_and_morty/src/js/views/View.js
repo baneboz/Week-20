@@ -17,4 +17,6 @@ export default class View {
     this._clear();
     this._containerEl.insertAdjacentHTML("afterbegin", markup);
   }
+
+  renderErr() {}
 }

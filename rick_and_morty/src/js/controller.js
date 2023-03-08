@@ -1,8 +1,9 @@
 import * as model from "./model.js";
-import { API_URL } from "./config.js";
+import { API_URL, API_URL_SINGLE } from "./config.js";
 import { charactersView } from "./views/charactersView.js";
 import { paginationView } from "./views/paginationView.js";
 import { goToView } from "./views/goToView.js";
+import { modalView } from "./views/modalView.js";
 
 const controlCharacters = async function (url) {
   // render spiner
@@ -13,13 +14,13 @@ const controlCharacters = async function (url) {
     await model.loadCharacters(url);
 
     // render characters
-    charactersView.render(model.state.characters);
+    charactersView.render(model.state);
 
     // render pagination
-    paginationView.render(model.state.info);
+    paginationView.render(model.state);
   } catch (err) {
     // temp error handling - NEED RENDER
-    // console.log(err.message);
+    console.log(err.message);
   }
 };
 
@@ -32,10 +33,23 @@ const controlGoTo = function (goTo) {
   controlCharacters(link);
 };
 
+const controlSingleCharacter = async function (char) {
+  try {
+    // get single char
+    await model.loadSingleCharacter(char);
+
+    // render in modal
+    modalView.render(model.state);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const init = function () {
   controlCharacters();
   paginationView.addHandlerClick(controlPagination);
   goToView.addHandlerClick(controlGoTo);
+  modalView.addHandlerClick(controlSingleCharacter);
 };
 
 init();

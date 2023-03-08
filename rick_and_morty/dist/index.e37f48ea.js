@@ -562,6 +562,7 @@ var _configJs = require("./config.js");
 var _charactersViewJs = require("./views/charactersView.js");
 var _paginationViewJs = require("./views/paginationView.js");
 var _goToViewJs = require("./views/goToView.js");
+var _modalViewJs = require("./views/modalView.js");
 const controlCharacters = async function(url) {
     // render spiner
     (0, _charactersViewJs.charactersView).renderSpin();
@@ -569,12 +570,12 @@ const controlCharacters = async function(url) {
         // get (load) chars
         await _modelJs.loadCharacters(url);
         // render characters
-        (0, _charactersViewJs.charactersView).render(_modelJs.state.characters);
+        (0, _charactersViewJs.charactersView).render(_modelJs.state);
         // render pagination
-        (0, _paginationViewJs.paginationView).render(_modelJs.state.info);
+        (0, _paginationViewJs.paginationView).render(_modelJs.state);
     } catch (err) {
-    // temp error handling - NEED RENDER
-    // console.log(err.message);
+        // temp error handling - NEED RENDER
+        console.log(err.message);
     }
 };
 const controlPagination = function(goTo) {
@@ -585,23 +586,37 @@ const controlGoTo = function(goTo) {
     const link = (0, _configJs.API_URL).slice(0, 48) + goTo;
     controlCharacters(link);
 };
+const controlSingleCharacter = async function(char) {
+    try {
+        // get single char
+        await _modelJs.loadSingleCharacter(char);
+        // render in modal
+        (0, _modalViewJs.modalView).render(_modelJs.state);
+    } catch (err) {
+        console.log(err);
+    }
+};
 const init = function() {
     controlCharacters();
     (0, _paginationViewJs.paginationView).addHandlerClick(controlPagination);
     (0, _goToViewJs.goToView).addHandlerClick(controlGoTo);
+    (0, _modalViewJs.modalView).addHandlerClick(controlSingleCharacter);
 };
 init();
 
-},{"./model.js":"Y4A21","./config.js":"k5Hzs","./views/charactersView.js":"7IqBs","./views/paginationView.js":"6z7bi","./views/goToView.js":"f6uWX"}],"Y4A21":[function(require,module,exports) {
+},{"./model.js":"Y4A21","./config.js":"k5Hzs","./views/charactersView.js":"7IqBs","./views/paginationView.js":"6z7bi","./views/goToView.js":"f6uWX","./views/modalView.js":"8QpnA"}],"Y4A21":[function(require,module,exports) {
 // import { API_URL, START_PAGE } from "./config.js";
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadCharacters", ()=>loadCharacters);
+parcelHelpers.export(exports, "loadSingleCharacter", ()=>loadSingleCharacter);
 var _helpersJs = require("./helpers.js");
+var _configJs = require("./config.js");
 const state = {
     characters: [],
-    info: {}
+    info: {},
+    singleCharacter: {}
 };
 const loadCharacters = async function(url) {
     try {
@@ -614,8 +629,16 @@ const loadCharacters = async function(url) {
         throw err;
     }
 };
+const loadSingleCharacter = async function(char) {
+    try {
+        const data = await (0, _helpersJs.getJSON)((0, _configJs.API_URL_SINGLE) + char);
+        state.singleCharacter = data;
+    } catch (err) {
+        throw err;
+    }
+};
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helpers.js":"hGI1E"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./helpers.js":"hGI1E","./config.js":"k5Hzs"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -675,8 +698,10 @@ const getJSON = async function(url = (0, _configJs.API_URL)) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL);
+parcelHelpers.export(exports, "API_URL_SINGLE", ()=>API_URL_SINGLE);
 parcelHelpers.export(exports, "TIMEOUT_SEC", ()=>TIMEOUT_SEC);
 const API_URL = "https://rickandmortyapi.com/api/character/?page=1";
+const API_URL_SINGLE = "https://rickandmortyapi.com/api/character/";
 const TIMEOUT_SEC = 7;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7IqBs":[function(require,module,exports) {
@@ -688,7 +713,7 @@ var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 class CharactersView extends (0, _viewJsDefault.default) {
     _containerEl = document.querySelector(".app__container");
     _generateMarkup() {
-        return this._data.map(this._generateMarkupCards).join("");
+        return this._data.characters.map(this._generateMarkupCards).join("");
     }
     _generateMarkupCards(card) {
         return `
@@ -727,6 +752,7 @@ class View {
         this._clear();
         this._containerEl.insertAdjacentHTML("afterbegin", markup);
     }
+    renderErr() {}
 }
 exports.default = View;
 
@@ -748,22 +774,23 @@ class PaginationView extends (0, _viewJsDefault.default) {
         });
     }
     _generateMarkup() {
-        const currentPage = this._data.nextPage ? this._data.nextPage.slice(48) - 1 : this._data.pagesNum;
-        if (!this._data.prevPage) return `
+        const info = this._data.info;
+        const currentPage = info.nextPage ? info.nextPage.slice(48) - 1 : info.pagesNum;
+        if (!info.prevPage) return `
       <li class="pagination__link pagination__link--prev disabled" data-goto="prevPage">
         <a href="#">&lt; Previous</a>
       </li>
-      <li><p>${currentPage} of ${this._data.pagesNum}</p></li>
+      <li><p>${currentPage} of ${info.pagesNum}</p></li>
       <li class="pagination__link pagination__link--next"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >
       </li>
     `;
-        if (!this._data.nextPage) return `
+        if (!info.nextPage) return `
       <li class="pagination__link pagination__link--prev" data-goto="prevPage">
         <a href="#">&lt; Previous</a>
       </li>
-      <li><p>${currentPage} of ${this._data.pagesNum}</p></li>
+      <li><p>${currentPage} of ${info.pagesNum}</p></li>
       <li class="pagination__link pagination__link--next disabled"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >
@@ -773,7 +800,7 @@ class PaginationView extends (0, _viewJsDefault.default) {
       <li class="pagination__link pagination__link--prev" data-goto="prevPage">
         <a href="#">&lt; Previous</a>
       </li>
-      <li><p>${currentPage} of ${this._data.pagesNum}</p></li>
+      <li><p>${currentPage} of ${info.pagesNum}</p></li>
       <li class="pagination__link pagination__link--next"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >
@@ -806,6 +833,45 @@ class GoToView extends (0, _viewJsDefault.default) {
     }
 }
 const goToView = new GoToView();
+
+},{"./View.js":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8QpnA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "modalView", ()=>modalView);
+var _viewJs = require("./View.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+class ModalView extends (0, _viewJsDefault.default) {
+    _containerEl = document.querySelector(".modal");
+    _modalTargetContainer = document.querySelector(".app__container");
+    _overlay = document.querySelector(".overlay");
+    addHandlerClick(handler) {
+        const modal = this._containerEl;
+        const overlay = this._overlay;
+        this._modalTargetContainer.addEventListener("click", function(e) {
+            const modalTarget = e.target.closest(".card");
+            if (!modalTarget) return;
+            handler(modalTarget.dataset.id);
+            modal.classList.remove("hidden");
+            overlay.classList.remove("hidden");
+        });
+        overlay.addEventListener("click", function(e) {
+            modal.classList.add("hidden");
+            overlay.classList.add("hidden");
+        });
+    }
+    _generateMarkup() {
+        const char = this._data.singleCharacter;
+        return `
+      <div class="">
+        <h3>${char.name}</h3>
+        <p>Gender: ${char.gender}</p>
+        <p>Specie: ${char.species}</p>
+        <p>Status: ${char.status}</p>
+      </div>
+    `;
+    }
+}
+const modalView = new ModalView();
 
 },{"./View.js":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["d8XZh","aenu9"], "aenu9", "parcelRequire2323")
 

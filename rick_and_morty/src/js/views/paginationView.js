@@ -17,16 +17,17 @@ class PaginationView extends View {
   }
 
   _generateMarkup() {
-    const currentPage = this._data.nextPage
-      ? this._data.nextPage.slice(48) - 1
-      : this._data.pagesNum;
+    const info = this._data.info;
+    const currentPage = info.nextPage
+      ? info.nextPage.slice(48) - 1
+      : info.pagesNum;
 
-    if (!this._data.prevPage) {
+    if (!info.prevPage) {
       return `
       <li class="pagination__link pagination__link--prev disabled" data-goto="prevPage">
         <a href="#">&lt; Previous</a>
       </li>
-      <li><p>${currentPage} of ${this._data.pagesNum}</p></li>
+      <li><p>${currentPage} of ${info.pagesNum}</p></li>
       <li class="pagination__link pagination__link--next"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >
@@ -34,12 +35,12 @@ class PaginationView extends View {
     `;
     }
 
-    if (!this._data.nextPage) {
+    if (!info.nextPage) {
       return `
       <li class="pagination__link pagination__link--prev" data-goto="prevPage">
         <a href="#">&lt; Previous</a>
       </li>
-      <li><p>${currentPage} of ${this._data.pagesNum}</p></li>
+      <li><p>${currentPage} of ${info.pagesNum}</p></li>
       <li class="pagination__link pagination__link--next disabled"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >
@@ -51,7 +52,7 @@ class PaginationView extends View {
       <li class="pagination__link pagination__link--prev" data-goto="prevPage">
         <a href="#">&lt; Previous</a>
       </li>
-      <li><p>${currentPage} of ${this._data.pagesNum}</p></li>
+      <li><p>${currentPage} of ${info.pagesNum}</p></li>
       <li class="pagination__link pagination__link--next"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >

@@ -4,7 +4,7 @@ class CharactersView extends View {
   _containerEl = document.querySelector(".app__container");
 
   _generateMarkup() {
-    return this._data.map(this._generateMarkupCards).join("");
+    return this._data.characters.map(this._generateMarkupCards).join("");
   }
 
   _generateMarkupCards(card) {
