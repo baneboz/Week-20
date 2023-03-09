@@ -2,12 +2,13 @@ import View from "./View.js";
 
 class GoToView extends View {
   _containerEl = document.querySelector(".pagination__go");
+  _btn = this._containerEl.querySelector(".pagination__btn--go");
 
   addHandlerClick(handler) {
-    const btn = this._containerEl.querySelector(".pagination__btn--go");
-    const page = this._containerEl.querySelector("#pagination__num");
+    let page = this._containerEl.querySelector("#pagination__num");
 
-    btn.addEventListener("click", function (e) {
+    this._btn.addEventListener("click", function (e) {
+      e.preventDefault();
       const pageGoTo = page.value;
 
       if (!pageGoTo) return;
@@ -17,6 +18,9 @@ class GoToView extends View {
       }
 
       handler(pageGoTo);
+
+      // clear input field
+      page.value = "";
     });
   }
 }

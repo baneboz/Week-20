@@ -12,56 +12,65 @@
   </head>
   <body>
     <header class="page__header">
-      <ul class="nav">
-        <li class="nav__link nav__link--brand">
-          <a href="index.html"
-            ><img src="src/img/logo.png" alt="Rick and Morty logo" width="250"
-          /></a>
-        </li>
-        <li class="nav__link nav__link--active">
-          <a href="index.html">Characters</a>
-        </li>
-        <!-- 
-        <li class="nav__link"><a href="#">Locations</a></li>
-        <li class="nav__link"><a href="#">Shows</a></li> -->
-      </ul>
+      <div class="container">
+        <ul class="nav">
+          <li class="nav__link nav__link--brand">
+            <a href="index.html"
+              ><img
+                src="src/img/logo-black.png"
+                alt="Rick and Morty logo"
+                width="50"
+            /></a>
+          </li>
+          <li class="nav__link nav__link--active">
+            <a href="index.html">Characters</a>
+          </li>
+        </ul>
+      </div>
     </header>
 
-    <div class="pagination">
-      <ul class="pagination__list"></ul>
-      <div class="pagination__go">
-        <p>
-          <label for="pagination__num">Go to Page</label>
-          <input
-            type="number"
-            name="pagination__num"
-            id="pagination__num"
-            min="1"
-            max="42"
-          />
-          <button class="pagination__btn pagination__btn--go">Go</button>
-        </p>
-      </div>
-    </div>
+    <main class="app">
+      <div class="container">
+        <div class="app__headline">
+          <h1>
+            <a href="https://rickandmortyapi.com" target="_new">
+              Rick &
+              <br />
+              Morty API
+            </a>
+          </h1>
+          <p>
+            Best place to find about your favorite animated sitcom Rick and
+            Morty characters.
+          </p>
+        </div>
 
-    <main class="app__container"></main>
+        <section class="pagination">
+          <ul class="pagination__list"></ul>
+          <div class="pagination__go">
+            <label for="pagination__num" class="pagination__label"
+              >Go to Page</label
+            >
+            <input
+              type="number"
+              name="pagination__num"
+              id="pagination__num"
+              class="pagination__num"
+              min="1"
+              max="42"
+            />
+            <button class="pagination__btn pagination__btn--go">Go</button>
+          </div>
+        </section>
+        <section class="cards__container"></section>
+      </div>
+    </main>
+
+    <footer class="page__footer">
+      <p>consumed by Branko Bozovic</p>
+    </footer>
 
     <article class="modal hidden"></article>
     <div class="overlay hidden"></div>
-
-    <footer class="page__footer">
-      <h1>
-        <a href="https://rickandmortyapi.com" target="_new">
-          Rick & Morty API
-        </a>
-      </h1>
-      <p>
-        Best place to find info about your favorite adult animated
-        science-fiction sitcom Rick and Morty. You can search for
-        <a href="#">characters</a>, <a href="#">episodes</a> and
-        <a href="#">locations</a>.
-      </p>
-      <p>consumed by Branko Bozovic</p>
-    </footer>
   </body>
 </html>

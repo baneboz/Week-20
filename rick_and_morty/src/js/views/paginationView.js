@@ -24,11 +24,11 @@ class PaginationView extends View {
 
     if (!info.prevPage) {
       return `
-      <li class="pagination__link pagination__link--prev disabled" data-goto="prevPage">
-        <a href="#">&lt; Previous</a>
+      <li class="pagination__item pagination__link pagination__link--prev disabled" data-goto="prevPage">
+        <a href="#">&lt; Prev</a>
       </li>
-      <li><p>${currentPage} of ${info.pagesNum}</p></li>
-      <li class="pagination__link pagination__link--next"  data-goto="nextPage">
+      <li class="pagination__item"><p>${currentPage} / ${info.pagesNum}</p></li>
+      <li class="pagination__item pagination__link pagination__link--next"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >
       </li>
@@ -37,11 +37,11 @@ class PaginationView extends View {
 
     if (!info.nextPage) {
       return `
-      <li class="pagination__link pagination__link--prev" data-goto="prevPage">
-        <a href="#">&lt; Previous</a>
+      <li class="pagination__item pagination__link pagination__link--prev" data-goto="prevPage">
+        <a href="#">&lt; Prev</a>
       </li>
-      <li><p>${currentPage} of ${info.pagesNum}</p></li>
-      <li class="pagination__link pagination__link--next disabled"  data-goto="nextPage">
+      <li class="pagination__item"><p>${currentPage} / ${info.pagesNum}</p></li>
+      <li class="pagination__item pagination__link pagination__link--next disabled"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >
       </li>
@@ -49,11 +49,11 @@ class PaginationView extends View {
     }
 
     return `
-      <li class="pagination__link pagination__link--prev" data-goto="prevPage">
-        <a href="#">&lt; Previous</a>
+      <li class="pagination__item pagination__link pagination__link--prev" data-goto="prevPage">
+        <a href="#">&lt; Prev</a>
       </li>
-      <li><p>${currentPage} of ${info.pagesNum}</p></li>
-      <li class="pagination__link pagination__link--next"  data-goto="nextPage">
+      <li class="pagination__item"><p>${currentPage} / ${info.pagesNum}</p></li>
+      <li class="pagination__item pagination__link pagination__link--next"  data-goto="nextPage">
         <a href="#">Next &gt;</a
         >
       </li>

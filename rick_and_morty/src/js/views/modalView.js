@@ -2,7 +2,7 @@ import View from "./View.js";
 
 class ModalView extends View {
   _containerEl = document.querySelector(".modal");
-  _modalTargetContainer = document.querySelector(".app__container");
+  _modalTargetContainer = document.querySelector(".cards__container");
   _overlay = document.querySelector(".overlay");
 
   addHandlerClick(handler) {

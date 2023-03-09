@@ -1,7 +1,7 @@
 import View from "./View.js";
 
 class CharactersView extends View {
-  _containerEl = document.querySelector(".app__container");
+  _containerEl = document.querySelector(".cards__container");
 
   _generateMarkup() {
     return this._data.characters.map(this._generateMarkupCards).join("");

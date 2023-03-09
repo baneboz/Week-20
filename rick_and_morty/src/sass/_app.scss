@@ -1,0 +1,73 @@
+.app {
+  padding: 2em 1em;
+}
+
+.cards__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1em;
+}
+
+.pagination {
+  font-size: 0.875em;
+  margin-top: 2em;
+  span {
+    font-weight: 2em;
+  }
+  &__list {
+    display: flex;
+    align-items: center;
+    font-weight: $f-bold;
+  }
+  &__item {
+    text-align: center;
+    padding-block: 1em;
+    flex: 1;
+  }
+  &__link {
+    cursor: pointer;
+    &--prev {
+      text-align: left;
+    }
+    &--next {
+      text-align: right;
+    }
+    &:hover {
+      opacity: 0.4;
+    }
+  }
+  &__go {
+    margin-block: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+  }
+  &__num,
+  &__btn {
+    border: none;
+    border-radius: $border-radius;
+    padding: 0.5em;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__label {
+    text-align: right;
+  }
+  &__btn {
+    text-transform: uppercase;
+    font-weight: $f-bold;
+    padding-inline: 1.5em;
+    cursor: pointer;
+    &:hover {
+      background-color: $green;
+    }
+  }
+}
+.disabled {
+  font-weight: normal;
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: auto;
+}
