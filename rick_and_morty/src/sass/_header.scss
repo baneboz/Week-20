@@ -1,5 +1,5 @@
 .page__header {
-  padding: 0.5em 1em;
+  padding: 0.75em 1em;
   background-color: $white;
   @include shadow;
 }
@@ -12,16 +12,15 @@
 
     &--brand {
       text-align: left;
-      & img {
+      img {
         border-radius: $border-radius;
+        vertical-align: middle;
       }
     }
-
     &:hover {
       color: $green;
     }
     a {
-      display: block;
       text-transform: uppercase;
       font-weight: $f-bold;
     }
@@ -29,4 +28,7 @@
 }
 
 @media all and (min-width: 720px) {
+  .page__header {
+    padding-block: 1em;
+  }
 }

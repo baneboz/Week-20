@@ -2,11 +2,11 @@ $green-dark: #253621;
 $green: #86c345;
 $blue: #00a5be;
 $yellowish: #ecd06f;
-$black: #2f362f;
+$dark: #2f362f;
 $white: #fff;
 $f-bold: 700;
-$border-radius: 5px;
-$box-shadow: 0 1px 4px rgba($black, 0.3);
+$border-radius: 0.5rem;
+$box-shadow: 0 1px 4px rgba($dark, 0.3);
 
 @mixin shadow {
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
@@ -62,10 +62,23 @@ h1 {
 **** large */
 @media all and (min-width: 1120px) {
   :root {
+    font-size: 20px;
+  }
+  .container {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 1650px) {
+  :root {
     font-size: 22px;
   }
   .container {
-    width: 1040px;
-    margin: 0 auto;
+    max-width: 1596px;
+    &--inner {
+      max-width: 1020px;
+      margin: 0 auto;
+    }
   }
 }

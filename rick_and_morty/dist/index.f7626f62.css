@@ -36,11 +36,26 @@ h1 {
 
 @media (min-width: 1120px) {
   :root {
+    font-size: 20px;
+  }
+
+  .container {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 1650px) {
+  :root {
     font-size: 22px;
   }
 
   .container {
-    width: 1040px;
+    max-width: 1596px;
+  }
+
+  .container--inner {
+    max-width: 1020px;
     margin: 0 auto;
   }
 }
@@ -48,39 +63,29 @@ h1 {
 .card {
   cursor: pointer;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: .5rem;
   transition: all .3s;
+  box-shadow: 0 1px 4px #2f362f4d;
 }
 
 .card__image {
   width: 100%;
   height: auto;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
   display: block;
 }
 
 .card__caption {
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: .5rem;
+  border-bottom-left-radius: .5rem;
   align-items: center;
-  padding: 2em 1em;
+  padding: 2em .5em;
   display: flex;
 }
 
 .card__caption h3 {
-  padding-right: .5em;
   font-size: 1rem;
-}
-
-.card__btn {
-  cursor: pointer;
-  margin-left: auto;
-  padding: .5em 1em;
-}
-
-.card__btn:hover {
-  background-color: #baba55;
 }
 
 .card:hover {
@@ -88,15 +93,46 @@ h1 {
 }
 
 .modal {
+  width: 80%;
+  color: #fff;
   z-index: 2;
-  background-color: #fff;
+  background-color: #2f362f;
+  border-radius: .5rem;
+  position: fixed;
+  top: 20%;
+  left: 10%;
+  box-shadow: 0 1px 4px #2f362f4d;
+}
+
+.modal__inner {
   flex-direction: column;
   justify-content: center;
   display: flex;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+}
+
+.modal__heading {
+  flex: 2;
+}
+
+.modal__heading img {
+  width: 100%;
+  height: 300px;
+  object-position: center center;
+  object-fit: cover;
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+  display: block;
+}
+
+.modal__content {
+  flex-direction: column;
+  flex: 3;
+  padding: .75em;
+  display: flex;
+}
+
+.modal__content span {
+  color: #00a5be;
 }
 
 .overlay {
@@ -112,6 +148,29 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+.like__btn {
+  height: 30px;
+  flex: 0 0 30px;
+  margin-left: auto;
+  transition: all .3s;
+}
+
+.like__btn--1 {
+  fill: #86c345;
+}
+
+.like__btn--2 {
+  fill: #fff;
+}
+
+.like__btn--1, .like__btn--2 {
+  fill-rule: evenodd;
+}
+
+.like__btn:hover {
+  transform: scale(1.5);
 }
 
 .lds-hourglass {
@@ -152,7 +211,7 @@ h1 {
 
 .page__header {
   background-color: #fff;
-  padding: .5em 1em;
+  padding: .75em 1em;
   box-shadow: 0 5px 10px #00000080;
 }
 
@@ -171,7 +230,8 @@ h1 {
 }
 
 .nav__link--brand img {
-  border-radius: 5px;
+  vertical-align: middle;
+  border-radius: .5rem;
 }
 
 .nav__link:hover {
@@ -181,16 +241,29 @@ h1 {
 .nav__link a {
   text-transform: uppercase;
   font-weight: 700;
-  display: block;
+}
+
+@media (min-width: 720px) {
+  .page__header {
+    padding-block: 1em;
+  }
+}
+
+.hero {
+  padding: 4em 2em;
+}
+
+.hero a:hover {
+  color: #86c345;
 }
 
 .app {
-  padding: 2em 1em;
+  padding: 0 1em 2em;
 }
 
 .cards__container {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5em;
   display: grid;
 }
 
@@ -205,6 +278,7 @@ h1 {
 
 .pagination__list {
   align-items: center;
+  margin-block: 1em 2em;
   font-weight: 700;
   display: flex;
 }
@@ -228,20 +302,19 @@ h1 {
 }
 
 .pagination__link:hover {
-  opacity: .4;
+  color: #86c345;
 }
 
 .pagination__go {
   justify-content: center;
   align-items: center;
   gap: 1em;
-  margin-block: 2em;
   display: flex;
 }
 
 .pagination__num, .pagination__btn {
   border: none;
-  border-radius: 5px;
+  border-radius: .5rem;
   padding: .5em;
 }
 

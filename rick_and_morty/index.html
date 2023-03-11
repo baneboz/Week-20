@@ -28,10 +28,9 @@
         </ul>
       </div>
     </header>
-
-    <main class="app">
-      <div class="container">
-        <div class="app__headline">
+    <section class="hero">
+      <div class="container--inner">
+        <div class="hero__content">
           <h1>
             <a href="https://rickandmortyapi.com" target="_new">
               Rick &
@@ -44,9 +43,11 @@
             Morty characters.
           </p>
         </div>
-
+      </div>
+    </section>
+    <main class="app">
+      <div class="container container--inner">
         <section class="pagination">
-          <ul class="pagination__list"></ul>
           <div class="pagination__go">
             <label for="pagination__num" class="pagination__label"
               >Go to Page</label
@@ -61,6 +62,7 @@
             />
             <button class="pagination__btn pagination__btn--go">Go</button>
           </div>
+          <ul class="pagination__list"></ul>
         </section>
         <section class="cards__container"></section>
       </div>

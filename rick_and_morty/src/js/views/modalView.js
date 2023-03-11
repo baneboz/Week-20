@@ -8,10 +8,10 @@ class ModalView extends View {
   addHandlerClick(handler) {
     const modal = this._containerEl;
     const overlay = this._overlay;
+    const closeBtn = this._closeBtn;
 
     this._modalTargetContainer.addEventListener("click", function (e) {
       const modalTarget = e.target.closest(".card");
-
       if (!modalTarget) return;
 
       handler(modalTarget.dataset.id);
@@ -28,13 +28,30 @@ class ModalView extends View {
 
   _generateMarkup() {
     const char = this._data.singleCharacter;
-
+    console.log(char);
     return `
-      <div class="">
-        <h3>${char.name}</h3>
-        <p>Gender: ${char.gender}</p>
-        <p>Specie: ${char.species}</p>
-        <p>Status: ${char.status}</p>
+      <div class="modal__inner">
+
+        <div class="modal__heading">
+          <img src="${char.image}" alt="${char.name}" />
+        </div>
+
+        <div class="modal__content">
+          <h3>${char.name}</h3>
+          <p>${char.status} | ${char.species} | ${char.gender}</p>
+          <p>
+            <span class="">Place of Origin:</span>
+            <br /> 
+            ${char.origin.name}
+          </p>
+          <p>
+            <span class="">
+              Last know Location: 
+            </span>
+            <br />
+            ${char.location.name}
+          </p>
+        </div>
       </div>
     `;
   }
